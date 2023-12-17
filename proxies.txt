@@ -1,1 +1,1 @@
-kowkkdlz9msjqxv:abzn2gcmi1t3w5f@rp.proxyscrape.com:6060
+username:password@host:port
