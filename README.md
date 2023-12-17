@@ -9,8 +9,7 @@ This Python script allows you to generate Opera GX promo codes using their API. 
 ## Features
 
 - Multi-threaded promo code generation
-- Proxy support for enhanced privacy
-- Rate limiting handling
+- Proxy support to bypass rate limits
 - User-friendly console interface
 
 ## How to Use
