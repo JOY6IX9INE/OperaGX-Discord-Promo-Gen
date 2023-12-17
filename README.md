@@ -14,12 +14,6 @@ This Python script allows you to generate Opera GX promo codes using their API. 
 
 ## How to Use
 
-1. **Clone the Repository:**
-   ```bash
-   git clone https://github.com/your-username/opera-gx-promo-generator.git
-   cd opera-gx-promo-generator
-   ```
-
 1. Install Dependencies:
 
 ```bash
