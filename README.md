@@ -4,7 +4,7 @@
 
 ## Overview
 
-This Python script allows you to generate Opera GX promo codes using Discord's API. It utilizes threading for concurrent generation, and you have the option to use proxies for additional anonymity.
+This Python script allows you to generate Opera GX promo codes using their API. It utilizes threading for concurrent generation, and you have the option to use proxies for additional anonymity.
 
 ## Features
 
