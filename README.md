@@ -31,8 +31,5 @@ python gen.py
 ```
 4. Enter the number of threads when prompted.
 
-5. Educational Purposes:
-This script is intended for educational purposes only. Use it responsibly and respect Discord's terms of service.
-
-License
-This project is licensed under the MIT License - see the LICENSE file for details.
+# Note
+This script is intended for educational purposes only. Use it responsibly and respect Discord's & OperaGx's terms of service.
