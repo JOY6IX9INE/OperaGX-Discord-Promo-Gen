@@ -1,4 +1,4 @@
-# OperaGX Promo Generator
+# [PATCHED] OperaGX Promo Generator
 
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
