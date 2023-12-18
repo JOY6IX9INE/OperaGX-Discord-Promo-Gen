@@ -1,5 +1,5 @@
-import requests, string, random, threading, time, ctypes, os
-from random import choice
+import requests, string, random, threading, time, ctypes, os, uuid
+from random import choice 
 
 os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -16,16 +16,6 @@ def get_timestamp():
     timestamp = f'[\x1b[90m{time_idk}\x1b[0m]'
     return timestamp
 
-def generate_random_id():
-    characters = string.ascii_letters + string.digits
-    random_string_1 = ''.join(random.choice(characters) for _ in range(8))
-    random_string_2 = ''.join(random.choice(characters) for _ in range(4))
-    random_string_3 = ''.join(random.choice(characters) for _ in range(4))
-    random_string_4 = ''.join(random.choice(characters) for _ in range(4))
-    random_string_5 = ''.join(random.choice(characters) for _ in range(12))
-    _id = f"{random_string_1}-{random_string_2}-{random_string_3}-{random_string_4}-{random_string_5}"
-    return _id
-
 def gen(proxy):
     while True:
         url = "https://api.discord.gx.games/v1/direct-fulfillment"
@@ -36,7 +26,7 @@ def gen(proxy):
         }
 
         data = {
-            "partnerUserId": generate_random_id()
+            "partnerUserId": str(uuid.uuid4())
         }
 
         try:
