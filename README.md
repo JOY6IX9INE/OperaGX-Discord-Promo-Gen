@@ -35,3 +35,5 @@ python gen.py
 
 # Note
 This script is intended for educational purposes only. Use it responsibly and respect Discord's & OperaGx's terms of service.
+
+<iframe style="width:100%;height:auto;min-width:600px;min-height:400px;" src="https://star-history.com/embed?secret=Z2hwXzZvTnBMVW8zUWdNS2piR3ZJTFV3bFYyOGFaYWRQNjBNVlR3Rg==#JOY6IX9INE/OperaGX-Discord-Promo-Gen&Date" frameBorder="0"></iframe>
