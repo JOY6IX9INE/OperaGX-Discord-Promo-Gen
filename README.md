@@ -1,6 +1,6 @@
 # OperaGX Promo Generator
 
-![License](https://img.shields.io/badge/license-MIT-blue) 
+![License](https://img.shields.io/badge/license-MIT-blue)  Last Updated On : December 21, 2023
 
 ## Overview
 
