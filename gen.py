@@ -1,23 +1,18 @@
-import requests, string, random, threading, time, ctypes, os, uuid
-from random import choice 
+import requests, string, random
+import concurrent.futures
+import time, ctypes, os, uuid
+from random import choice
 
 os.system('cls' if os.name == 'nt' else 'clear')
 
-class counter:
+class Counter:
     count = 0
 
-red = '\x1b[31m(-)\x1b[0m'
-blue = '\x1b[34m(+)\x1b[0m'
-green = '\x1b[32m(+)\x1b[0m'
-yellow = '\x1b[33m(!)\x1b[0m'
+class PromoGenerator:
+    def __init__(self, proxy):
+        self.proxy = proxy
 
-def get_timestamp():
-    time_idk = time.strftime('%H:%M:%S')
-    timestamp = f'[\x1b[90m{time_idk}\x1b[0m]'
-    return timestamp
-
-def gen(proxy):
-    while True:
+    def generate_promo(self):
         url = "https://api.discord.gx.games/v1/direct-fulfillment"
         headers = {
             "Content-Type": "application/json",
@@ -30,8 +25,8 @@ def gen(proxy):
         }
 
         try:
-            if proxy is not None:
-                credentials, host = proxy.split('@')
+            if self.proxy is not None:
+                credentials, host = self.proxy.split('@')
                 user, password = credentials.split(':')
                 host, port = host.split(':')
                 formatted_proxy = f"http://{user}:{password}@{host}:{port}"
@@ -42,41 +37,59 @@ def gen(proxy):
             if response.status_code == 200:
                 token = response.json().get('token')
                 if token:
-                    counter.count += 1
+                    Counter.count += 1
                     ctypes.windll.kernel32.SetConsoleTitleW(
-                            f"Opera Gx Promo Gen | Made With <3 By Joy"
-                            f" | Generated : {counter.count}")
+                        f"Opera Gx Promo Gen | Made With <3 By Joy"
+                        f" | Generated : {Counter.count}")
                     link = f"https://discord.com/billing/partner-promotions/1180231712274387115/{token}"
                     with open("promos.txt", "a") as f:
                         f.write(f"{link}\n")
-                    print(f"{get_timestamp()} {green} Generated Promo Link : {link}")
+                    print(f"{self.get_timestamp()} {self.green} Generated Promo Link : {link}")
             elif response.status_code == 429:
-                print(f"{get_timestamp()} {yellow} You are being rate-limited!")
+                print(f"{self.get_timestamp()} {self.yellow} You are being rate-limited!")
             else:
-                print(f"{get_timestamp()} {red} Request failed : {response.status_code}")
+                print(f"{self.get_timestamp()} {self.red} Request failed : {response.status_code}")
         except Exception as e:
-            print(f"{get_timestamp()} {red} Request Failed : {e}")
+            print(f"{self.get_timestamp()} {self.red} Request Failed : {e}")
 
-def main():
-    num_threads = int(input(f"{get_timestamp()} {blue} Enter Number Of Threads : "))
-    with open("proxies.txt") as f:
-        proxies = f.read().splitlines()
+    @staticmethod
+    def get_timestamp():
+        time_idk = time.strftime('%H:%M:%S')
+        return f'[\x1b[90m{time_idk}\x1b[0m]'
 
-    threads = []
-    for i in range(num_threads):
-        proxy = choice(proxies) if proxies else None
-        thread = threading.Thread(target=gen, args=(proxy,))
-        threads.append(thread)
+    @staticmethod
+    def green(text):
+        return '\x1b[32m' + text + '\x1b[0m'
 
-    for thread in threads:
-        thread.start()
+    @staticmethod
+    def yellow(text):
+        return '\x1b[33m' + text + '\x1b[0m'
 
-    try:
+    @staticmethod
+    def red(text):
+        return '\x1b[31m' + text + '\x1b[0m'
+
+class PromoManager:
+    def __init__(self):
+        self.num_threads = int(input(f"{PromoGenerator.get_timestamp()} {PromoGenerator.blue} Enter Number Of Threads : "))
+        with open("proxies.txt") as f:
+            self.proxies = f.read().splitlines()
+
+    def start_promo_generation(self):
+        with concurrent.futures.ThreadPoolExecutor(max_workers=self.num_threads) as executor:
+            futures = {executor.submit(self.generate_promo, choice(self.proxies) if self.proxies else None): i for i in range(self.num_threads)}
+            try:
+                concurrent.futures.wait(futures)
+            except KeyboardInterrupt:
+                for future in concurrent.futures.as_completed(futures):
+                    future.result()
+
+    @staticmethod
+    def generate_promo(proxy):
+        generator = PromoGenerator(proxy)
         while True:
-            time.sleep(1)
-    except KeyboardInterrupt:
-        for thread in threads:
-            thread.join()
+            generator.generate_promo()
 
 if __name__ == "__main__":
-    main()
+    manager = PromoManager()
+    manager.start_promo_generation()
