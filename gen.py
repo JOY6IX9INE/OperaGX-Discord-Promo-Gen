@@ -9,6 +9,11 @@ class Counter:
     count = 0
 
 class PromoGenerator:
+    red = '\x1b[31m(-)\x1b[0m'
+    blue = '\x1b[34m(+)\x1b[0m'
+    green = '\x1b[32m(+)\x1b[0m'
+    yellow = '\x1b[33m(!)\x1b[0m'
+    
     def __init__(self, proxy):
         self.proxy = proxy
 
@@ -56,18 +61,6 @@ class PromoGenerator:
     def get_timestamp():
         time_idk = time.strftime('%H:%M:%S')
         return f'[\x1b[90m{time_idk}\x1b[0m]'
-
-    @staticmethod
-    def green(text):
-        return '\x1b[32m' + text + '\x1b[0m'
-
-    @staticmethod
-    def yellow(text):
-        return '\x1b[33m' + text + '\x1b[0m'
-
-    @staticmethod
-    def red(text):
-        return '\x1b[31m' + text + '\x1b[0m'
 
 class PromoManager:
     def __init__(self):
