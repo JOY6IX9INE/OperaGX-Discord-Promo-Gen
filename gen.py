@@ -13,8 +13,8 @@ class PromoGenerator:
     blue = '\x1b[34m(+)\x1b[0m'
     green = '\x1b[32m(+)\x1b[0m'
     yellow = '\x1b[33m(!)\x1b[0m'
-    
-    def __init__(self, proxy):
+
+    def __init__(self, proxy=None):
         self.proxy = proxy
 
     def generate_promo(self):
@@ -30,7 +30,7 @@ class PromoGenerator:
         }
 
         try:
-            if self.proxy is not None:
+            if self.proxy:
                 credentials, host = self.proxy.split('@')
                 user, password = credentials.split(':')
                 host, port = host.split(':')
@@ -70,15 +70,15 @@ class PromoManager:
 
     def start_promo_generation(self):
         with concurrent.futures.ThreadPoolExecutor(max_workers=self.num_threads) as executor:
-            futures = {executor.submit(self.generate_promo, choice(self.proxies) if self.proxies else None): i for i in range(self.num_threads)}
+            futures = {executor.submit(self.generate_promo): i for i in range(self.num_threads)}
             try:
                 concurrent.futures.wait(futures)
             except KeyboardInterrupt:
                 for future in concurrent.futures.as_completed(futures):
                     future.result()
 
-    @staticmethod
-    def generate_promo(proxy):
+    def generate_promo(self):
+        proxy = choice(self.proxies) if self.proxies else None
         generator = PromoGenerator(proxy)
         while True:
             generator.generate_promo()
