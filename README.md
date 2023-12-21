@@ -26,6 +26,7 @@ pip install requests
 ```ruby
 username:password@host:port
 ```
+You Can Use It With Proxy Or Without Proxy Too.
 
 3. Run the Script:
 ```bash
