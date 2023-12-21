@@ -19,7 +19,7 @@ This Python script allows you to generate discord promo links. It utilizes threa
 1. Install Dependencies:
 
 ```bash
-pip install requests
+pip install -r requirements.txt
 ```
 
 2. Enter proxies in proxies.txt in the following format:
