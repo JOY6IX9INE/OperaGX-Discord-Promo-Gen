@@ -28,7 +28,7 @@ class PromoGenerator:
         data = {
             "partnerUserId": str(uuid.uuid4())
         }
-
+        
         try:
             if self.proxy:
                 credentials, host = self.proxy.split('@')
@@ -38,7 +38,6 @@ class PromoGenerator:
                 response = requests.post(url, json=data, headers=headers, proxies={'http': formatted_proxy, 'https': formatted_proxy}, timeout=5)
             else:
                 response = requests.post(url, json=data, headers=headers, timeout=5)
-
             if response.status_code == 200:
                 token = response.json().get('token')
                 if token:
@@ -86,3 +85,4 @@ class PromoManager:
 if __name__ == "__main__":
     manager = PromoManager()
     manager.start_promo_generation()
+    
