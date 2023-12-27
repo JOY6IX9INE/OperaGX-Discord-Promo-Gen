@@ -1,7 +1,9 @@
-import requests, string, random
+import requests, time
 import concurrent.futures
-import time, ctypes, os, uuid
+import os, uuid, ctypes
 from random import choice
+from requests.adapters import HTTPAdapter
+from requests.packages.urllib3.util.retry import Retry
 
 os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -16,6 +18,15 @@ class PromoGenerator:
 
     def __init__(self, proxy=None):
         self.proxy = proxy
+        self.session = self.create_session()
+
+    def create_session(self):
+        session = requests.Session()
+        retries = Retry(total=5, backoff_factor=0.1, status_forcelist=[500, 502, 503, 504])
+        adapter = HTTPAdapter(max_retries=retries)
+        session.mount('http://', adapter)
+        session.mount('https://', adapter)
+        return session
 
     def generate_promo(self):
         url = "https://api.discord.gx.games/v1/direct-fulfillment"
@@ -28,23 +39,20 @@ class PromoGenerator:
         data = {
             "partnerUserId": str(uuid.uuid4())
         }
-        
+
         try:
             if self.proxy:
-                credentials, host = self.proxy.split('@')
-                user, password = credentials.split(':')
-                host, port = host.split(':')
-                formatted_proxy = f"http://{user}:{password}@{host}:{port}"
-                response = requests.post(url, json=data, headers=headers, proxies={'http': formatted_proxy, 'https': formatted_proxy}, timeout=5)
+                formatted_proxy = f"http://{self.proxy}"
+                response = self.session.post(url, json=data, headers=headers, proxies={'http': formatted_proxy, 'https': formatted_proxy}, timeout=5)
             else:
-                response = requests.post(url, json=data, headers=headers, timeout=5)
+                response = self.session.post(url, json=data, headers=headers, timeout=5)
+
             if response.status_code == 200:
                 token = response.json().get('token')
                 if token:
                     Counter.count += 1
                     ctypes.windll.kernel32.SetConsoleTitleW(
-                        f"Opera Gx Promo Gen | Made With <3 By Joy"
-                        f" | Generated : {Counter.count}")
+                        f"Opera Gx Promo Gen | Made With <3 By Joy | Generated : {Counter.count}")
                     link = f"https://discord.com/billing/partner-promotions/1180231712274387115/{token}"
                     with open("promos.txt", "a") as f:
                         f.write(f"{link}\n")
@@ -67,7 +75,7 @@ class PromoManager:
         with open("proxies.txt") as f:
             self.proxies = f.read().splitlines()
 
-    def start_promo_generation(self):
+    def start_gen(self):
         with concurrent.futures.ThreadPoolExecutor(max_workers=self.num_threads) as executor:
             futures = {executor.submit(self.generate_promo): i for i in range(self.num_threads)}
             try:
@@ -84,5 +92,4 @@ class PromoManager:
 
 if __name__ == "__main__":
     manager = PromoManager()
-    manager.start_promo_generation()
-    
+    manager.start_gen()
