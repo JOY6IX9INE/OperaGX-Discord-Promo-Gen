@@ -58,7 +58,7 @@ class PromoGenerator:
                         f.write(f"{link}\n")
                     print(f"{self.get_timestamp()} {self.green} Generated Promo Link : {link}")
             elif response.status_code == 429:
-                print(f"{self.get_timestamp()} {self.yellow} You are being rate-limited!")
+                print(f"{self.get_timestamp()} {self.yellow} You Are Being Rate-limited!")
             else:
                 print(f"{self.get_timestamp()} {self.red} Request failed : {response.status_code}")
         except Exception as e:
