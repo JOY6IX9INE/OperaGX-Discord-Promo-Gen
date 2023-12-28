@@ -8,7 +8,7 @@ from requests.packages.urllib3.util.retry import Retry
 os.system('cls' if os.name == 'nt' else 'clear')
 
 class Counter:
-    count = 0
+     count = 0
 
 class PromoGenerator:
     red = '\x1b[31m(-)\x1b[0m'
