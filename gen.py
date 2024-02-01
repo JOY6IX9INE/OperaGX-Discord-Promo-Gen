@@ -3,12 +3,12 @@ import concurrent.futures
 import os, uuid, ctypes
 from random import choice
 from requests.adapters import HTTPAdapter
-from requests.packages.urllib3.util.retry import Retry
+from urllib3.util.retry import Retry
 
 os.system('cls' if os.name == 'nt' else 'clear')
 
 class Counter:
-     count = 0
+    count = 0
 
 class PromoGenerator:
     red = '\x1b[31m(-)\x1b[0m'
@@ -30,10 +30,20 @@ class PromoGenerator:
 
     def generate_promo(self):
         url = "https://api.discord.gx.games/v1/direct-fulfillment"
-        headers = {
-            "Content-Type": "application/json",
-            "Sec-Ch-Ua": '"Opera GX";v="105", "Chromium";v="119", "Not?A_Brand";v="24"',
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36 OPR/105.0.0.0",
+        headers={
+            'authority': 'api.discord.gx.games',
+            'accept': '*/*',
+            'accept-language': 'en-US,en;q=0.9',
+            'content-type': 'application/json',
+            'origin': 'https://www.opera.com',
+            'referer': 'https://www.opera.com/',
+            'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Opera GX";v="106"',
+            'sec-ch-ua-mobile': '?0',
+            'sec-ch-ua-platform': '"Windows"',
+            'sec-fetch-dest': 'empty',
+            'sec-fetch-mode': 'cors',
+            'sec-fetch-site': 'cross-site',
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 OPR/106.0.0.0',
         }
 
         data = {
@@ -58,7 +68,7 @@ class PromoGenerator:
                         f.write(f"{link}\n")
                     print(f"{self.get_timestamp()} {self.green} Generated Promo Link : {link}")
             elif response.status_code == 429:
-                print(f"{self.get_timestamp()} {self.yellow} You Are Being Rate-limited!")
+                print(f"{self.get_timestamp()} {self.yellow} You are being rate-limited!")
             else:
                 print(f"{self.get_timestamp()} {self.red} Request failed : {response.status_code}")
         except Exception as e:
