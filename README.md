@@ -36,7 +36,8 @@ python gen.py
 ```
 4. Enter the number of threads when prompted.
 
-# Note
-This script is intended for educational purposes only. Use it responsibly and respect Discord's & OperaGx's terms of service.
+# Disclaimer
+This tool is created for educational purposes and ethical use only. Any misuse of this tool for malicious purposes is not condoned. The developers of this tool are not responsible for any illegal or unethical activities carried out using this tool.
+
 
 [![Star History Chart](https://api.star-history.com/svg?repos=JOY6IX9INE/OperaGX-Discord-Promo-Gen&type=Date)](https://star-history.t9t.io/#JOY6IX9INE/OperaGX-Discord-Promo-Gen&Date)
