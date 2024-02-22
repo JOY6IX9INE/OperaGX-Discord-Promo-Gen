@@ -1,3 +1,4 @@
+
 # OperaGX Promo Generator
 
 ![License](https://img.shields.io/badge/license-MIT-blue)
@@ -41,3 +42,4 @@ This tool is created for educational purposes and ethical use only. Any misuse o
 
 
 [![Star History Chart](https://api.star-history.com/svg?repos=JOY6IX9INE/OperaGX-Discord-Promo-Gen&type=Date)](https://star-history.t9t.io/#JOY6IX9INE/OperaGX-Discord-Promo-Gen&Date)
+
