@@ -1,5 +1,5 @@
 
-# OperaGX Promo Generator $\textcolor{red}{\textsf{[PATCHED]}}$
+# OperaGX Promo Generator $\textcolor{red}{\textsf{[ PATCHED ]}}$
 
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
